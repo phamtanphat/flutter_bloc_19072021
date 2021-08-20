@@ -8,23 +8,6 @@ class WeatherPage extends StatefulWidget {
 
 class _WeatherPageState extends State<WeatherPage> {
 
-  @override
-  void didUpdateWidget(covariant WeatherPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    fetchApiDemo1();
-  }
-
-  void fetchApiDemo1() async{
-    // Dio().get("https://khoapham.vn/KhoaPhamTraining/json/tien/demo1.json")
-    //     .then((value) => print(value))
-    //     .catchError((error) => print(error));
-
-    Response response = await Dio().get("https://khoapham.vn/KhoaPhamTraining/json/tien/demo1.json");
-    if (response.statusCode == 200){
-      print(response.data['monhoc'].toString());
-    }
-
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,3 +21,5 @@ class _WeatherPageState extends State<WeatherPage> {
     );
   }
 }
+
+
