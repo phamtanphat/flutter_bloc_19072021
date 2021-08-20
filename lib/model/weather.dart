@@ -1,4 +1,3 @@
-
 enum WeatherState{
   snow,
   sleet,
@@ -33,5 +32,22 @@ class Weather{
     required this.minTemp,
     required this.maxTemp,
   });
+
+  static WeatherState tranFormAbToState(String ab){
+    Map<String , WeatherState> mapWeather = {
+      'sn': WeatherState.snow,
+      'sl': WeatherState.sleet,
+      'h': WeatherState.hail,
+      't': WeatherState.thunderstorm,
+      'hr': WeatherState.heavyRain,
+      'lr': WeatherState.lightRain,
+      's': WeatherState.showers,
+      'hc': WeatherState.heavyCloud,
+      'lc': WeatherState.lightCloud,
+      'c': WeatherState.clear
+    };
+    return mapWeather[ab] ?? WeatherState.unknown;
+  }
+
 }
 
