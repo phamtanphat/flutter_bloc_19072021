@@ -20,7 +20,7 @@ class _WeatherPageState extends State<WeatherPage> {
   @override
   void didUpdateWidget(covariant WeatherPage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    repository.fetchIdFromCityName("abc");
+    repository.fetchWeatherFromId(2379574);
   }
 
   @override

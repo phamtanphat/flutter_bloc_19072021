@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_bloc_19072021/model/weather.dart';
 import 'package:flutter_bloc_19072021/request/weather_request.dart';
 
 class WeatherRepository{
@@ -24,6 +25,18 @@ class WeatherRepository{
       }
     }catch(e){
       completer.completeError(e);
+    }
+    return completer.future;
+  }
+
+  Future<Weather> fetchWeatherFromId(int id) async{
+    Completer<Weather> completer = Completer();
+    try{
+      Response response = await weatherRequest.getWeatherFromId(id);
+      Weather weather = Weather.fromJson(response.data);
+      print(weather.toString());
+    }catch(e){
+      print(e.toString());
     }
     return completer.future;
   }

@@ -49,5 +49,24 @@ class Weather{
     return mapWeather[ab] ?? WeatherState.unknown;
   }
 
+  static Weather fromJson(dynamic json){
+    var array = json['consolidated_weather'];
+    var objectWeather = array[0];
+    return Weather(
+      id: json['woeid'],
+      title: json['title'],
+      weatherState: tranFormAbToState(objectWeather['weather_state_abbr']),
+      weatherAB: objectWeather['weather_state_abbr'],
+      created: json['time'],
+      temp: objectWeather['the_temp'],
+      minTemp: objectWeather['min_temp'],
+      maxTemp: objectWeather['max_temp'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Weather{title: $title, id: $id, weatherState: $weatherState, weatherAB: $weatherAB, created: $created, temp: $temp, minTemp: $minTemp, maxTemp: $maxTemp}';
+  }
 }
 
