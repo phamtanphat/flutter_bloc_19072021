@@ -6,9 +6,13 @@ import 'package:flutter_bloc_19072021/request/weather_request.dart';
 
 class WeatherRepository{
 
-  WeatherRequest weatherRequest;
+  late WeatherRequest weatherRequest;
 
-  WeatherRepository({required this.weatherRequest});
+  WeatherRepository();
+
+  void updateWeatherRequest(WeatherRequest weatherRequest){
+    this.weatherRequest = weatherRequest;
+  }
 
   Future<int> fetchIdFromCityName(String city) async{
     Completer<int> completer = new Completer();
