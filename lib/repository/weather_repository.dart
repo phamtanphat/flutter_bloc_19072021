@@ -34,9 +34,9 @@ class WeatherRepository{
     try{
       Response response = await weatherRequest.getWeatherFromId(id);
       Weather weather = Weather.fromJson(response.data);
-      print(weather.toString());
+      completer.complete(weather);
     }catch(e){
-      print(e.toString());
+      completer.completeError(e);
     }
     return completer.future;
   }
