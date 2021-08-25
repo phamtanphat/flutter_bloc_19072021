@@ -134,7 +134,27 @@ class _WeatherPageContainerState extends State<WeatherPageContainer> {
                               style: TextStyle(fontSize: 40 , fontWeight: FontWeight.bold , color : Colors.red)
                           )
                       )
-                  )
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Image.network("https://www.metaweather.com/static/img/weather/png/64/${weather.weatherAB}.png"),
+                        ),
+                        SizedBox(width: 10),
+                        Column(
+                          children: [
+                            Text("Temp : ${weather.temp.toString().substring(0 ,2)} °C" , style: TextStyle(color: Colors.black)),
+                            Text("Min Temp : ${weather.minTemp.toString().substring(0 ,2)} °C" , style: TextStyle(color: Colors.black)),
+                            Text("Max Temp : ${weather.maxTemp.toString().substring(0 ,2)} °C" , style: TextStyle(color: Colors.black)),
+                          ],
+                        ),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Text("Created : ${weather.created} " , style: TextStyle(color: Colors.black)),
                 ],
               );
               break;
