@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc_19072021/model/weather.dart';
 import 'package:flutter_bloc_19072021/page/weather_bloc.dart';
 import 'package:flutter_bloc_19072021/page/weather_event.dart';
 import 'package:flutter_bloc_19072021/repository/weather_repository.dart';
@@ -52,13 +56,6 @@ class _WeatherPageContainerState extends State<WeatherPageContainer> {
   void initState() {
     super.initState();
     bloc = context.read();
-    bloc.addEvent(WeatherEvent(cityName: "chicago"));
-  }
-
-  @override
-  void didUpdateWidget(covariant WeatherPageContainer oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    bloc.addEvent(WeatherEvent(cityName: "abcxyz"));
   }
 
   void changeStatusSearchBox(){
@@ -82,6 +79,10 @@ class _WeatherPageContainerState extends State<WeatherPageContainer> {
                         margin: EdgeInsets.symmetric(horizontal:  10 , vertical: 5),
                         child: TextField(
                           textAlignVertical: TextAlignVertical.center,
+                          textAlign: TextAlign.start,
+                          onSubmitted: (text){
+                            bloc.addEvent(WeatherEvent(cityName: text));
+                          },
                           decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.white,
@@ -112,10 +113,35 @@ class _WeatherPageContainerState extends State<WeatherPageContainer> {
               )
         ],
       ),
-      body: Container(
-        child: Center(
-          child: Text("Demo"),
-        ),
+      body: StreamBuilder<Weather>(
+        stream: bloc.weatherStream,
+        builder: (context, snapshot){
+          if (snapshot.hasError){
+            return Center(
+              child: Text(snapshot.error.toString() , style: TextStyle(fontSize: 30)),
+            );
+          }
+          switch(snapshot.connectionState){
+            case ConnectionState.active :
+              Weather weather = snapshot.data as Weather;
+              return Column(
+                children: [
+                  Center(
+                      child: Container(
+                          margin: EdgeInsets.only(top: 10),
+                          child: Text(
+                              weather.title ,
+                              style: TextStyle(fontSize: 40 , fontWeight: FontWeight.bold , color : Colors.red)
+                          )
+                      )
+                  )
+                ],
+              );
+              break;
+            default :
+              return SizedBox();
+          }
+        },
       ),
     );
   }

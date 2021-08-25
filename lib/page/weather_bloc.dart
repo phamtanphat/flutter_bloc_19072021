@@ -10,6 +10,8 @@ class WeatherBloc extends BaseBloc{
   late WeatherRepository weatherRepository;
   StreamController<Weather> _weatherController = StreamController();
 
+  Stream<Weather> get weatherStream => _weatherController.stream;
+
   WeatherBloc();
 
   void updateWeatherRepository(WeatherRepository weatherRepository){
